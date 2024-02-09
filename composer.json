@@ -35,5 +35,18 @@
         "phpstan": "phpstan analyse --memory-limit=-1 src/",
         "test": "./vendor/bin/phpunit --testdox "
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jetcod\\Eloquent\\ServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
     "minimum-stability": "dev"
 }

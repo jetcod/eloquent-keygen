@@ -1,6 +1,6 @@
 <?php
 
-namespace Jetcod\IpIntelligence;
+namespace Jetcod\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
@@ -14,7 +14,7 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/config/Eloquent.php' => config_path('Eloquent.php'),
+            __DIR__ . '/config/Eloquent.php' => config_path('eloquent.php'),
         ], 'eloquent-key-generator-config');
     }
 
