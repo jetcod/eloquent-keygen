@@ -3,23 +3,25 @@
     "description": "A Laravel package for custom-format primary key generation in Eloquent models.",
     "type": "library",
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "illuminate/database": "^8.83",
+        "illuminate/support": "^8.83"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "friendsofphp/php-cs-fixer": "^3.49",
-        "phpunit/phpunit": "^11.0",
+        "phpunit/phpunit": "^9.6|^11.0",
         "fakerphp/faker": "^1.23"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Jetcod\\EloquentKeygen\\": "src/"
+            "Jetcod\\Eloquent\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Jetcod\\EloquentKeygen\\Test\\": "tests/"
+            "Jetcod\\Eloquent\\Test\\": "tests/"
         }
     },
     "authors": [
