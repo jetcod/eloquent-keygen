@@ -14,7 +14,7 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/config/Eloquent.php' => config_path('eloquent.php'),
+            __DIR__ . '/Config/Eloquent.php' => config_path('eloquent.php'),
         ], 'eloquent-key-generator-config');
     }
 
