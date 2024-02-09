@@ -23,7 +23,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/Eloquent.php', 'eloquent');
+        $this->mergeConfigFrom(__DIR__ . '/Config/Eloquent.php', 'eloquent');
 
         $this->app->singleton(Model::class, config('eloquent.customModel.generator', EloquentModel::class));
     }
