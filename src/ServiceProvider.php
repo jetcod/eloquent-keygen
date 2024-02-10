@@ -2,9 +2,8 @@
 
 namespace Jetcod\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-use Jetcod\Eloquent\Model as EloquentModel;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -16,6 +15,8 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes([
             __DIR__ . '/Config/Eloquent.php' => config_path('eloquent.php'),
         ], 'eloquent-key-generator-config');
+
+        $this->mergeConfigFrom(__DIR__ . '/Config/Eloquent.php', 'eloquent');
     }
 
     /**
@@ -23,8 +24,10 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/Config/Eloquent.php', 'eloquent');
+        $this->app->bind('PrimaryKeyGenerator', function (Application $app) {
+            return $app->make(config('eloquent.customModel.generator'));
+        });
 
-        $this->app->singleton(Model::class, config('eloquent.customModel.generator', EloquentModel::class));
+        $this->app->alias('PrimaryKeyGenerator', \Jetcod\Eloquent\Facades\PrimaryKeyGenerator::class);
     }
 }

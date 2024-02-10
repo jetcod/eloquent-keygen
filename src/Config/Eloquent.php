@@ -18,6 +18,6 @@ return [
          |------------------------------------------------------------
          */
 
-        'generator' => \Jetcod\Eloquent\Facades\PrimaryKeyGenerator::class,
+        'generator' => \Jetcod\Eloquent\PrimaryKeyGenerator::class,
     ],
 ];
