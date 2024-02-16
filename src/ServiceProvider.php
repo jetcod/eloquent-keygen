@@ -2,6 +2,8 @@
 
 namespace Jetcod\Eloquent;
 
+use Godruoyi\Snowflake\SequenceResolver;
+use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
@@ -24,10 +26,13 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('PrimaryKeyGenerator', function (Application $app) {
-            return $app->make(config('eloquent.customModel.generator'));
+        $this->app->singleton(Snowflake::class, function (Application $app) {
+            return new Snowflake(
+                config('Eloquent.snowflake.datacenter'),
+                config('Eloquent.snowflake.worker'),
+            );
         });
 
-        $this->app->alias('PrimaryKeyGenerator', \Jetcod\Eloquent\Facades\PrimaryKeyGenerator::class);
+        $this->app->singleton(SequenceResolver::class, config('Eloquent.snowflake.sequence_resolver'));
     }
 }

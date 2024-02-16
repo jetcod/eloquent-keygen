@@ -7,16 +7,17 @@ use Jetcod\Eloquent\Facades\PrimaryKeyGenerator;
 
 class Model extends EloquentModel
 {
-    public $incrementing = false;
-
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($model) {
-            $primaryKey = $model->primaryKey;
-
-            $model->{$primaryKey} = PrimaryKeyGenerator::generate();
+        static::saving(function ($model) {
+            if (!$model->getKey()) {
+                $model->setIncrementing(false);
+                $keyName = $model->getKeyName();
+                $id      = PrimaryKeyGenerator::generate();
+                $model->setAttribute($keyName, $id);
+            }
         });
     }
 }

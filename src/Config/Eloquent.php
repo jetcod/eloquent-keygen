@@ -1,23 +1,41 @@
 <?php
 
 /*
- |----------------------------------------------------------------------------------------
+ |------------------------------------------------------------------------------------
  | Custom Library Configuration
- |----------------------------------------------------------------------------------------
- | This configuration file is used to define settings for the Eloquent KeyGen lib library.
- | It provides the ability to configure the primary key generator class.
+ |------------------------------------------------------------------------------------
+ | This configuration file is used to define configuration for snowflake algorithm
+ | which used to generate primary keys.
  |
  */
 
+use Godruoyi\Snowflake\LaravelSequenceResolver;
+
 return [
-
-    'customModel' => [
+    'snowflake' => [
         /*
-         |------------------------------------------------------------
-         | Specify the class to be used as the primary key generator.
-         |------------------------------------------------------------
-         */
+        |------------------------------------------------------------------
+        | This represents the datacenter id used to generate snowflake ids.
+        |------------------------------------------------------------------
+        */
 
-        'generator' => \Jetcod\Eloquent\PrimaryKeyGenerator::class,
+        'datacenter' => env('DATACENTER_ID', 1),
+
+        /*
+        |--------------------------------------------------------------
+        | This represents the worker id used to generate snowflake ids.
+        |--------------------------------------------------------------
+        */
+
+        'worker' => env('WORKER_ID', 1),
+
+        /*
+        |--------------------------------------------------------------------------------------------------------
+        | This represents the sequence resolver class. It is to ensure that sequence-number generated in the same
+        | millisecond of the same node is unique.
+        |--------------------------------------------------------------------------------------------------------
+        */
+
+        'sequence_resolver' => LaravelSequenceResolver::class,
     ],
 ];
