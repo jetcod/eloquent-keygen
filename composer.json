@@ -4,6 +4,7 @@
     "type": "library",
     "require": {
         "php": "^7.4|^8.0",
+        "godruoyi/php-snowflake": "^2.0|^3.0",
         "illuminate/database": "^8.0|^9.0|^10.0",
         "illuminate/support": "^8.0|^9.0|^10.0"
     },
@@ -31,8 +32,8 @@
         }
     ],
     "scripts": {
-        "phpcs-fix": "php-cs-fixer fix ",
-        "phpstan": "phpstan analyse --memory-limit=-1 src/",
+        "phpcs-fix": "./vendor/bin/php-cs-fixer fix ",
+        "phpstan": "./vendor/bin/phpstan analyse --memory-limit=-1 src/",
         "test": "./vendor/bin/phpunit --testdox "
     },
     "extra": {
