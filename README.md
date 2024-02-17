@@ -20,7 +20,7 @@ php artisan vendor:publish --provider="eloquent-key-generator-config"
 
 To use the package, follow these steps:
 
-1. **Extend Your Model**:
+- **Extend Your Model**:
 
 Instead of extending Illuminate\Database\Eloquent\Model, extend Jetcod\Eloquent\Model in your Eloquent model. This will enable automatic ID generation using the Snowflake algorithm.
 
@@ -37,7 +37,7 @@ class YourModel extends EloquentModel
 }
 ```
 
-2. **Disable Snowflake Generation for a Model**:
+- **Disable Snowflake Generation for a Model**:
 
 If you want to disable the Snowflake ID generation for a particular model, you can add a snowflake method to that model returning false.
 
@@ -61,7 +61,7 @@ class AnotherModel extends EloquentModel
 
 The snowflake method returns a boolean value indicating whether the Snowflake ID generation should be enabled or disabled for that model.
 
-3. **Configuration for distributed system**:
+- **Configuration for distributed system**:
 
 The package uses the following configuration to generate the distributed unique identifier:
 
