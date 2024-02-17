@@ -12,7 +12,7 @@
 use Godruoyi\Snowflake\LaravelSequenceResolver;
 
 return [
-    'snowflake' => [
+    'attributes' => [
         /*
         |------------------------------------------------------------------
         | This represents the datacenter id used to generate snowflake ids.

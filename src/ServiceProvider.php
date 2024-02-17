@@ -19,10 +19,10 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/Config/Eloquent.php' => config_path('eloquent.php'),
+            __DIR__ . '/Config/snowflake.php' => config_path('snowflake.php'),
         ], 'eloquent-key-generator-config');
 
-        $this->mergeConfigFrom(__DIR__ . '/Config/Eloquent.php', 'eloquent');
+        $this->mergeConfigFrom(__DIR__ . '/Config/snowflake.php', 'snowflake');
     }
 
     /**
@@ -39,8 +39,8 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->app->singleton(Snowflake::class, function (Application $app) {
             return new Snowflake(
-                config('eloquent.snowflake.datacenter'),
-                config('eloquent.snowflake.worker'),
+                config('snowflake.attributes.datacenter'),
+                config('snowflake.attributes.worker'),
             );
         });
     }
@@ -48,7 +48,7 @@ class ServiceProvider extends IlluminateServiceProvider
     private function registerSequenceResolver(): void
     {
         $this->app->singleton(SequenceResolver::class, function (Application $app) {
-            $resolverClass = config('eloquent.snowflake.sequence_resolver');
+            $resolverClass = config('snowflake.attributes.sequence_resolver');
 
             switch ($resolverClass) {
                 case LaravelSequenceResolver::class:
@@ -58,7 +58,7 @@ class ServiceProvider extends IlluminateServiceProvider
                     return $app->make($resolverClass);
 
                 case FileLockResolver::class:
-                    $path = config('eloquent.snowflake.file_lock_directory');
+                    $path = config('snowflake.attributes.file_lock_directory');
 
                     if (null === $path) {
                         $path = $app->storagePath() . '/snowflake';
