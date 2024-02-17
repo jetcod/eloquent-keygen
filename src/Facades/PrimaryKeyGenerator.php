@@ -16,6 +16,6 @@ class PrimaryKeyGenerator extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'PrimaryKeyGenerator';
+        return 'snowflake-id';
     }
 }

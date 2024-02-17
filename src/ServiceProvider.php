@@ -10,6 +10,7 @@ use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use Jetcod\Eloquent\Facades\PrimaryKeyGenerator as PrimaryKeyGeneratorFacade;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -75,8 +76,13 @@ class ServiceProvider extends IlluminateServiceProvider
 
     private function registerPrimaryKeyGenerator(): void
     {
-        $this->app->bind(PrimaryKeyGenerator::class, function (Application $app) {
-            return $app->make(PrimaryKeyGenerator::class, [Snowflake::class, SequenceResolver::class]);
+        $this->app->singleton('snowflake-id', function ($app) {
+            return $app->make(PrimaryKeyGenerator::class, [
+                Snowflake::class,
+                SequenceResolver::class,
+            ]);
         });
+
+        $this->app->alias('snowflake-id', PrimaryKeyGeneratorFacade::class);
     }
 }
