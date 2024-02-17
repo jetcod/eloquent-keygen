@@ -12,15 +12,21 @@ class PrimaryKeyGenerator
      */
     protected $snowflake;
 
-    public function __construct(Snowflake $snowflake)
+    /**
+     * @var SequenceResolver
+     */
+    protected $resolver;
+
+    public function __construct(Snowflake $snowflake, SequenceResolver $resolver)
     {
         $this->snowflake = $snowflake;
+        $this->resolver  = $resolver;
     }
 
     public function generate()
     {
         return $this->snowflake
-            ->setSequenceResolver(SequenceResolver::class)
+            ->setSequenceResolver($this->resolver)
             ->id()
         ;
     }
