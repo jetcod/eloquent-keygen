@@ -20,6 +20,7 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         $this->publishes([
+            // @phpstan-ignore-next-line
             __DIR__ . '/Config/snowflake.php' => config_path('snowflake.php'),
         ], 'eloquent-key-generator-config');
 
@@ -40,7 +41,9 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->app->singleton(Snowflake::class, function (Application $app) {
             return new Snowflake(
+                // @phpstan-ignore-next-line
                 config('snowflake.attributes.datacenter'),
+                // @phpstan-ignore-next-line
                 config('snowflake.attributes.worker'),
             );
         });
@@ -49,6 +52,7 @@ class ServiceProvider extends IlluminateServiceProvider
     private function registerSequenceResolver(): void
     {
         $this->app->singleton(SequenceResolver::class, function (Application $app) {
+            // @phpstan-ignore-next-line
             $resolverClass = config('snowflake.attributes.sequence_resolver');
 
             switch ($resolverClass) {
@@ -59,6 +63,7 @@ class ServiceProvider extends IlluminateServiceProvider
                     return $app->make($resolverClass);
 
                 case FileLockResolver::class:
+                    // @phpstan-ignore-next-line
                     $path = config('snowflake.attributes.file_lock_directory');
 
                     if (null === $path) {
