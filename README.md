@@ -105,7 +105,7 @@ return [
         'file_lock_directory' => env('SNOWFLAKE_File_LOCK_DIRECTORY', null),  // Default is null, means use <app_path>/storage/snowflake directory.
     ],
 ];
-
+```
 
 ## License
 
