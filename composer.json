@@ -1,6 +1,17 @@
 {
     "name": "jetcod/eloquent-keygen",
-    "description": "A Laravel package for custom-format primary key generation in Eloquent models.",
+    "description": "A Laravel package providing seamless integration with Snowflake ID generation for Eloquent models",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "snowflake",
+        "unique id",
+        "primary key",
+        "model",
+        "generator",
+        "automatic id",
+        "distributed systems"
+    ],
     "type": "library",
     "require": {
         "php": "^7.4|^8.0",
