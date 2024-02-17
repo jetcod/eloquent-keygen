@@ -12,7 +12,7 @@ class Model extends EloquentModel
         parent::boot();
 
         static::saving(function ($model) {
-            if ($this->snowflake() && !$model->getKey()) {
+            if ($model->snowflake() && !$model->getKey()) {
                 $model->setIncrementing(false);
                 $keyName = $model->getKeyName();
                 $id      = PrimaryKeyGenerator::generate();
