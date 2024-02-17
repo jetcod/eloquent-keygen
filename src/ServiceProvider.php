@@ -2,8 +2,12 @@
 
 namespace Jetcod\Eloquent;
 
+use Godruoyi\Snowflake\FileLockResolver;
+use Godruoyi\Snowflake\LaravelSequenceResolver;
+use Godruoyi\Snowflake\RandomSequenceResolver;
 use Godruoyi\Snowflake\SequenceResolver;
 use Godruoyi\Snowflake\Snowflake;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
@@ -26,13 +30,53 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register(): void
     {
+        $this->registerSnowFlake();
+        $this->registerSequenceResolver();
+        $this->registerPrimaryKeyGenerator();
+    }
+
+    private function registerSnowFlake(): void
+    {
         $this->app->singleton(Snowflake::class, function (Application $app) {
             return new Snowflake(
-                config('Eloquent.snowflake.datacenter'),
-                config('Eloquent.snowflake.worker'),
+                config('eloquent.snowflake.datacenter'),
+                config('eloquent.snowflake.worker'),
             );
         });
+    }
 
-        $this->app->singleton(SequenceResolver::class, config('Eloquent.snowflake.sequence_resolver'));
+    private function registerSequenceResolver(): void
+    {
+        $this->app->singleton(SequenceResolver::class, function (Application $app) {
+            $resolverClass = config('eloquent.snowflake.sequence_resolver');
+
+            switch ($resolverClass) {
+                case LaravelSequenceResolver::class:
+                    return $app->make(LaravelSequenceResolver::class, [Repository::class]);
+
+                case RandomSequenceResolver::class:
+                    return $app->make($resolverClass);
+
+                case FileLockResolver::class:
+                    $path = config('eloquent.snowflake.file_lock_directory');
+
+                    if (null === $path) {
+                        $path = $app->storagePath() . '/snowflake';
+                        mkdir($path, 0755, true);
+                    }
+
+                    return $app->make($resolverClass, [$path]);
+
+                default:
+                    throw new \InvalidArgumentException("Invalid sequence resolver class: {$resolverClass}");
+            }
+        });
+    }
+
+    private function registerPrimaryKeyGenerator(): void
+    {
+        $this->app->bind(PrimaryKeyGenerator::class, function (Application $app) {
+            return $app->make(PrimaryKeyGenerator::class, [Snowflake::class, SequenceResolver::class]);
+        });
     }
 }
