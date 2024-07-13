@@ -2,7 +2,9 @@
 
 namespace Jetcod\Eloquent\Test;
 
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Jetcod\Eloquent\ServiceProvider;
+use Mockery as m;
+use Orchestra\Testbench\TestCase as PHPUnitTestCase;
 
 /**
  * @internal
@@ -11,5 +13,22 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
  */
 class TestCase extends PHPUnitTestCase
 {
-    protected function setUp(): void {}
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        m::close();
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [ServiceProvider::class];
+    }
+
+    protected function getEnvironmentSetUp($app) {}
 }
