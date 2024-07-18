@@ -25,12 +25,15 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           coverage: none
-      
+
       - name: Validate composer.json
         run: composer validate --no-check-all --strict
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+
+      - name: Validate PHPUnit configuration
+        run: ./vendor/bin/phpunit --validate-configuration
 
       - name: Run phpstan
         run: composer run-script phpstan

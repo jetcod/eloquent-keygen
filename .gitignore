@@ -4,5 +4,6 @@
 # Ignore composer lock files
 composer.lock
 
-# Ignore cache files
+# Ignore cache and backup files
 *.cache
+*.bak
