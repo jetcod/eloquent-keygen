@@ -2,38 +2,60 @@ name: Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches:
+      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
+  phpunit:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        php-version: [7.4, 8.0, 8.1, 8.2]
+        os: [ubuntu-latest]
+        php: [7.4, 8.0, 8.1, 8.2]
+        include:
+          - php: "7.4"
+            laravel: "8.*"
+            testbench: "^6.0"
+          - php: "8.0"
+            laravel: "9.*"
+            testbench: "^7.0"
+          - php: "8.1"
+            laravel: "10.*"
+            testbench: "^8.0"
+          - php: "8.2"
+            laravel: "11.*"
+            testbench: "^9.0"
+          
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up PHP ${{ matrix.php-version }}
+      - name: Install SQLite
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sqlite3
+
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, iconv
           coverage: none
 
-      - name: Validate composer.json
-        run: composer validate --no-check-all --strict
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Install Composer dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction
+          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Run phpstan
         run: composer run-script phpstan
 
-      - name: Run test suite
-        run: composer run-script test
+      - name: Execute PHPUnit tests
+        run: vendor/bin/phpunit
