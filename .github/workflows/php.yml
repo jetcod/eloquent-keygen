@@ -15,21 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        php: [7.4, 8.0, 8.1, 8.2]
-        include:
-          - php: "7.4"
-            laravel: "8.*"
-            testbench: "^6.0"
-          - php: "8.0"
-            laravel: "9.*"
-            testbench: "^7.0"
-          - php: "8.1"
-            laravel: "10.*"
-            testbench: "^8.0"
-          - php: "8.2"
-            laravel: "11.*"
-            testbench: "^9.0"
+        php-version: [7.4, 8.0, 8.1, 8.2]
 
     steps:
       - uses: actions/checkout@v2
