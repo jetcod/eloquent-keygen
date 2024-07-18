@@ -2,6 +2,7 @@
 
 namespace Jetcod\Eloquent\Test;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Jetcod\Eloquent\ServiceProvider;
 use Mockery as m;
 use Orchestra\Testbench\TestCase as PHPUnitTestCase;
@@ -13,6 +14,8 @@ use Orchestra\Testbench\TestCase as PHPUnitTestCase;
  */
 class TestCase extends PHPUnitTestCase
 {
+    use RefreshDatabase;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -28,6 +31,11 @@ class TestCase extends PHPUnitTestCase
     protected function getPackageProviders($app)
     {
         return [ServiceProvider::class];
+    }
+
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
     }
 
     protected function getEnvironmentSetUp($app) {}
