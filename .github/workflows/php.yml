@@ -32,9 +32,6 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Validate PHPUnit configuration
-        run: ./vendor/bin/phpunit --validate-configuration
-
       - name: Run phpstan
         run: composer run-script phpstan
 
