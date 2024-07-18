@@ -37,6 +37,24 @@ class YourModel extends EloquentModel
 }
 ```
 
+- **Using Trait**:
+
+If you don't want to extend the Eloquent model, or you want to apply the Snowflake ID generation to one model, you can use the Snowflake trait in your model class.
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Jetcod\Eloquent\Traits\Snowflake;
+
+class YourModel extends EloquentModel
+{
+    use Snowflake;
+}
+```
+
 - **Disable Snowflake Generation for a Model**:
 
 If you want to disable the Snowflake ID generation for a particular model, you can add a snowflake method to that model returning false.
