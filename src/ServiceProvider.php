@@ -68,7 +68,7 @@ class ServiceProvider extends IlluminateServiceProvider
                         $filesystem->ensureDirectoryExists($path, 0755, true);
                     }
 
-                    return $app->make($resolverClass, [$path]);
+                    return $app->make($resolverClass, ['lockFileDir' => $path]);
 
                 default:
                     throw new \InvalidArgumentException("Invalid sequence resolver class: {$resolverClass}");
