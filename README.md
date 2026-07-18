@@ -125,6 +125,12 @@ return [
 ];
 ```
 
+## Support the Project
+
+If Eloquent KeyGen saves you time or is useful in your work, you can support its continued development through [Buy Me a Coffee](https://buymeacoffee.com/jetcod). Support helps with ongoing maintenance, bug fixes, documentation, compatibility updates, and future improvements. Contributions are appreciated but entirely optional, and the project remains available to everyone.
+
+<a href="https://www.buymeacoffee.com/jetcod" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
