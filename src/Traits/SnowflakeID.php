@@ -10,7 +10,7 @@ trait SnowflakeID
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        static::creating(function ($model) {
             if ($model->snowflake() && !$model->getKey()) {
                 $model->setIncrementing(false);
                 $keyName = $model->getKeyName();
