@@ -54,9 +54,17 @@ jobs:
 
       - name: Install Composer dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction
-          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction
-          composer update --prefer-dist --no-interaction
+          composer require --dev \
+            "laravel/framework:${{ matrix.laravel }}" \
+            "orchestra/testbench:${{ matrix.testbench }}" \
+            --no-update \
+            --no-interaction
+
+          composer update \
+            --prefer-dist \
+            --no-interaction \
+            --no-progress \
+            --no-blocking
 
       - name: Run phpstan
         run: composer run-script phpstan
