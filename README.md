@@ -1,5 +1,7 @@
 # Eloquent KeyGen
 
+[![Code coverage](https://codecov.io/gh/jetcod/eloquent-keygen/branch/main/graph/badge.svg)](https://codecov.io/gh/jetcod/eloquent-keygen)
+
 This is a Laravel package providing seamless integration with Snowflake ID generation for Eloquent models. Simplify primary key management with automatic generation using a highly distributed unique identifier system. Enhance your application's scalability and efficiency with this easy-to-use package for Laravel Eloquent models.
 
 ## Installation
