@@ -7,3 +7,7 @@ composer.lock
 # Ignore cache and backup files
 *.cache
 *.bak
+
+# Ignore generated code coverage reports
+/build/coverage/
+/build/coverage.xml

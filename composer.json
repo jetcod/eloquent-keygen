@@ -44,6 +44,7 @@
         }
     ],
     "scripts": {
+        "coverage": "@php ./vendor/bin/phpunit --coverage-text --coverage-html build/coverage --coverage-clover build/coverage.xml",
         "phpcs-fix": "./vendor/bin/php-cs-fixer fix ",
         "phpstan": "./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=-1 src/",
         "test": "./vendor/bin/phpunit --testdox "
