@@ -83,4 +83,12 @@ class SequenceResolverRegistrationTest extends TestCase
         $this->assertInstanceOf(RandomSequenceResolver::class, $resolver);
         $this->assertDirectoryDoesNotExist($defaultPath);
     }
+
+    public function testRejectsInvalidSequenceResolverClass()
+    {
+        config()->set('snowflake.attributes.sequence_resolver', \stdClass::class);
+        
+        $this->expectException(\InvalidArgumentException::class);
+        $this->app->make(SequenceResolver::class);
+    }
 }
