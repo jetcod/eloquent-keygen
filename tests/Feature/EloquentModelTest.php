@@ -6,12 +6,9 @@ use Jetcod\Eloquent\Model;
 use Jetcod\Eloquent\PrimaryKeyGenerator;
 use Jetcod\Eloquent\Test\TestCase;
 use Mockery as m;
+use PHPUnit\Framework\Attributes\CoversNothing;
 
-/**
- * @internal
- *
- * @coversNothing
- */
+#[CoversNothing]
 class EloquentModelTest extends TestCase
 {
     private $mockedId = '123456789012345678';
