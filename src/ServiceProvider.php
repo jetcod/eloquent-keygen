@@ -9,6 +9,7 @@ use Godruoyi\Snowflake\SequenceResolver;
 use Godruoyi\Snowflake\Snowflake;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Jetcod\Eloquent\Facades\PrimaryKeyGenerator as PrimaryKeyGeneratorFacade;
 
@@ -62,8 +63,9 @@ class ServiceProvider extends IlluminateServiceProvider
                     $path = config('snowflake.attributes.file_lock_directory');
 
                     if (null === $path) {
-                        $path = $app->storagePath() . '/snowflake';
-                        mkdir($path, 0755, true);
+                        $path       = $app->storagePath() . '/snowflake';
+                        $filesystem = $app->make(Filesystem::class);
+                        $filesystem->ensureDirectoryExists($path, 0755, true);
                     }
 
                     return $app->make($resolverClass, [$path]);
