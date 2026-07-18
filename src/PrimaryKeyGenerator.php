@@ -8,7 +8,7 @@ use Godruoyi\Snowflake\Snowflake;
 class PrimaryKeyGenerator
 {
     /**
-     * @var Snowflake;
+     * @var Snowflake
      */
     protected $snowflake;
 
@@ -23,7 +23,7 @@ class PrimaryKeyGenerator
         $this->resolver  = $resolver;
     }
 
-    public function generate()
+    public function generate(): string
     {
         return $this->snowflake
             ->setSequenceResolver($this->resolver)
