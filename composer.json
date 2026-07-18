@@ -14,15 +14,17 @@
     ],
     "type": "library",
     "require": {
-        "php": "^7.4|^8.0",
-        "godruoyi/php-snowflake": "^2.0|^3.0"
+        "php-64bit": ">=8.1",
+        "godruoyi/php-snowflake": "^3.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.49",
-        "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9.0|^10.0|^11.0",
-        "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0"
+        "phpstan/phpstan": "^2.2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^10.0|^11.0|^12.0|^13.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "laravel/framework": "^10.0|^11.0|^12.0|^13.0"
     },
     "license": "MIT",
     "autoload": {
@@ -43,7 +45,7 @@
     ],
     "scripts": {
         "phpcs-fix": "./vendor/bin/php-cs-fixer fix ",
-        "phpstan": "./vendor/bin/phpstan analyse --memory-limit=-1 src/",
+        "phpstan": "./vendor/bin/phpstan analyse --configuration=phpstan.neon.dist --memory-limit=-1 src/",
         "test": "./vendor/bin/phpunit --testdox "
     },
     "extra": {
