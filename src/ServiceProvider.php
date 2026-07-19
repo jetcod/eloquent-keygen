@@ -23,8 +23,6 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes([
             __DIR__ . '/Config/snowflake.php' => config_path('snowflake.php'),
         ], 'eloquent-key-generator-config');
-
-        $this->mergeConfigFrom(__DIR__ . '/Config/snowflake.php', 'snowflake');
     }
 
     /**
@@ -32,6 +30,8 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__ . '/Config/snowflake.php', 'snowflake');
+
         $this->registerSnowFlake();
         $this->registerSequenceResolver();
         $this->registerPrimaryKeyGenerator();
